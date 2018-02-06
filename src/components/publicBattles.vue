@@ -4,7 +4,12 @@
     <h3 class="text-center">Daily Startup Battles</h3>
     <button class="btn btn-info log" v-on:click="updateBattles()">Update Battles</button>
     <hr/>
-    <battle-card v-for="battle in publicBattles" v-bind:battle="battle" v-bind:key="battle.id"></battle-card>
+    <div class="row">
+      <battle-card v-for="battle in publicBattles" v-bind:battle="battle" v-bind:key="battle.id"></battle-card>
+    </div>
+<!--     <div class="row">
+      <alert-card v-for="battle in publicBattles" v-bind:battle="battle" v-bind:key="battle.id"></alert-card>
+    </div> -->
   </div>
 </template>
 
@@ -12,6 +17,7 @@
 import axios from 'axios';
 import AppNav from './AppNav';
 import BattleCard from './battleCard';
+// import AlertCard from './alertCard';
 import { getPublicStartupBattles } from '../../utils/battles-api';
 
 export default {
@@ -19,6 +25,7 @@ export default {
   components: {
     AppNav,
     BattleCard,
+    // AlertCard,
   },
   data() {
     return {
@@ -39,9 +46,12 @@ export default {
   },
   mounted() {
     this.getPublicStartupBattles();
+    setInterval(() => {
+      this.getPublicStartupBattles();
+    }, 300);
   },
 };
 </script>
 
-<style scoped>
+<style>
 </style>
